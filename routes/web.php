@@ -21,4 +21,10 @@ $router->group(['prefix' => 'api'], function () use($router) {
     $router->post('login', 'AuthController@login');
     $router->get('me', 'AuthController@me');
     $router->post('logout', 'AuthController@logout');
+
+    $router->get('students', 'StudentController@index');
+    $router->get('students/{id}', 'StudentController@show');
+    $router->post('students', 'StudentController@store');
+    $router->put('students/{id}', 'StudentController@update');
+    $router->delete('students/{id}', 'StudentController@destroy');
 });
