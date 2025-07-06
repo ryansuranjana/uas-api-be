@@ -18,6 +18,17 @@ class StudentController extends Controller
         $this->middleware('auth:api');
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/students",
+     *     security={{"bearerAuth":{}}},
+     *     summary="Get list of students",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation"
+     *     )
+     * )
+     */
     public function index()
     {
         try {
@@ -29,6 +40,27 @@ class StudentController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/students/{id}",
+     *     security={{"bearerAuth":{}}},
+     *     summary="Get student by ID",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Student not found"
+     *     )
+     * )
+     */
     public function show($id)
     {
         try {
@@ -42,6 +74,36 @@ class StudentController extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/students",
+     *     security={{"bearerAuth":{}}},
+     *     summary="Create a new student",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             type="object",
+     *             required={"nis", "name", "email", "date_of_birth", "place_of_birth", "class_name"},
+     *             @OA\Property(property="nis", type="string", maxLength=8, example="12345678"),
+     *             @OA\Property(property="name", type="string", maxLength=255, example="John Doe"),
+     *             @OA\Property(property="email", type="string", format="email", example="john@example.com"),
+     *             @OA\Property(property="phone", type="string", maxLength=15, example="08123456789"),
+     *             @OA\Property(property="address", type="string", maxLength=255, example="Jl. Mawar No. 1"),
+     *             @OA\Property(property="date_of_birth", type="string", format="date", example="2000-01-01"),
+     *             @OA\Property(property="place_of_birth", type="string", maxLength=255, example="Jakarta"),
+     *             @OA\Property(property="class_name", type="string", maxLength=50, example="XII IPA 1")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Student created successfully"
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation error"
+     *     )
+     * )
+     */
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -75,6 +137,42 @@ class StudentController extends Controller
         }
     }
 
+    /**
+     * @OA\Put(
+     *     path="/api/students/{id}",
+     *     security={{"bearerAuth":{}}},
+     *     summary="Update a student",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             type="object",
+     *             required={"nis", "name", "email", "date_of_birth", "place_of_birth", "class_name"},
+     *             @OA\Property(property="nis", type="string", maxLength=8, example="12345678"),
+     *             @OA\Property(property="name", type="string", maxLength=255, example="John Doe"),
+     *             @OA\Property(property="email", type="string", format="email", example="john@example.com"),
+     *             @OA\Property(property="phone", type="string", maxLength=15, example="08123456789"),
+     *             @OA\Property(property="address", type="string", maxLength=255, example="Jl. Mawar No. 1"),
+     *             @OA\Property(property="date_of_birth", type="string", format="date", example="2000-01-01"),
+     *             @OA\Property(property="place_of_birth", type="string", maxLength=255, example="Jakarta"),
+     *             @OA\Property(property="class_name", type="string", maxLength=50, example="XII IPA 1")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Student updated successfully"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Student not found"
+     *     )
+     * )
+     */
     public function update(Request $request, $id)
     {
         $this->validate($request, [
@@ -111,6 +209,27 @@ class StudentController extends Controller
         }
     }
 
+    /**
+     * @OA\Delete(
+     *     path="/api/students/{id}",
+     *     security={{"bearerAuth":{}}},
+     *     summary="Delete a student",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Student deleted successfully"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Student not found"
+     *     )
+     * )
+     */
     public function destroy($id)
     {
         try {

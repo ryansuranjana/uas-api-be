@@ -17,6 +17,28 @@ class AuthController extends Controller
         $this->middleware('auth:api', ['except' => ['login']]);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/login",
+     *     summary="User login",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"email", "password"},
+     *             @OA\Property(property="email", type="string"),
+     *             @OA\Property(property="password", type="string")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful login"
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized"
+     *     )
+     * )
+     */
     public function login(Request $request)
     {
         $this->validate($request, [
@@ -33,11 +55,41 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/me",
+     *     summary="Get authenticated user",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation"
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized"
+     *     )
+     * )
+     */
     public function me()
     {
         return response()->json(auth()->user());
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/logout",
+     *     security={{"bearerAuth":{}}},
+     *     summary="User logout",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful logout"
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthorized"
+     *     )
+     * )
+     */
     public function logout()
     {
         auth()->logout();
