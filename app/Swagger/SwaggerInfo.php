@@ -2,7 +2,7 @@
 
 /**
  * @OA\Info(
- *     title="My API",
+ *     title="UAS API Backend",
  *     version="1.0.0",
  *     description="Lumen Swagger API documentation"
  * )
