@@ -67,5 +67,5 @@ Jika ingin melihat dokumentasi api bisa akses ke endpoint ini
 ```
 
 ## Akun
-email: superadmin@gmail.com
+email: superadmin@gmail.com <br>
 password: password
