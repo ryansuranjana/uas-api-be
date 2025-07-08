@@ -65,3 +65,7 @@ Jika ingin melihat dokumentasi api bisa akses ke endpoint ini
 ```http
   GET /api/documentation
 ```
+
+## Akun
+email: superadmin@gmail.com
+password: password
